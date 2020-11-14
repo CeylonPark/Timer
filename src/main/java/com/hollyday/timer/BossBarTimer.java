@@ -9,24 +9,31 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class BossBarTimer {
-    private BossBar bossBar;
+    private final BossBar bossBar;
     private String title;
     private int second;
     private BukkitRunnable runnable;
+    private Runnable afterRunnable = null;
 
     public BossBarTimer() {
         this.title = "<minute> Minute <second> Second";
+        this.second = 0;
         this.bossBar = Bukkit.createBossBar(this.title, BarColor.PINK, BarStyle.SEGMENTED_10);
         this.bossBar.setVisible(false);
-        this.second = 0;
     }
-    public BossBarTimer setTitle(String title) {
+
+    public BossBarTimer(String title, int second) {
         this.title = title;
-        return this;
-    }
-    public BossBarTimer setSecond(int second) {
         this.second = second;
-        return this;
+        this.bossBar = Bukkit.createBossBar(this.title, BarColor.PINK, BarStyle.SEGMENTED_10);
+        this.bossBar.setVisible(false);
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public void setSecond(int second) {
+        this.second = second;
     }
     public void addPlayer(Player player) {
         this.bossBar.addPlayer(player);
@@ -34,7 +41,9 @@ public class BossBarTimer {
     public void removePlayer(Player player) {
         this.bossBar.removePlayer(player);
     }
-
+    public void setAfterRunnable(Runnable afterRunnable) {
+        this.afterRunnable = afterRunnable;
+    }
     public void runTimer(Plugin plugin, int cool) {
         stop();
         this.bossBar.setVisible(true);
@@ -45,7 +54,12 @@ public class BossBarTimer {
             @Override
             public void run() {
                 setBossBar(count = count - cool);
-                if(count <= 0) stop();
+                if(count <= 0) {
+                    stop();
+                    if(afterRunnable != null) {
+                        afterRunnable.run();
+                    }
+                }
             }
         };
         this.runnable.runTaskTimer(plugin, 20*cool, 20*cool);
@@ -66,6 +80,8 @@ public class BossBarTimer {
             title = this.title.replace("<second>", String.valueOf(count));
         }
         this.bossBar.setTitle(title);
-        this.bossBar.setProgress((double) count/second);
+        if(second > 0) {
+            this.bossBar.setProgress((double) count/second);
+        }
     }
 }

@@ -27,12 +27,12 @@ public class TimerListener implements Listener {
         PlayerInventory inv = player.getInventory();
         ItemStack item = inv.getItemInMainHand();
 
-        //돌 우클릭시 보스바 실행
-        if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-                && event.getHand() == EquipmentSlot.HAND && event.getItem() != null
-                && item.getType() == Material.WATCH) { //해시계로 변경
-            this.barTimer.setSecond(15).runTimer(this.plugin, 1);
-            //나중에 인벤토리 오픈
+        if (event.getHand() == EquipmentSlot.HAND && event.getItem() != null && item.getType() == Material.WATCH) {
+            if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                //인벤토리 오픈
+            } else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
+                //좌표 설정
+            }
         }
     }
 
