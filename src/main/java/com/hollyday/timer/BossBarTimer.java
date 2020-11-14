@@ -15,9 +15,10 @@ public class BossBarTimer {
     private BukkitRunnable runnable;
 
     public BossBarTimer() {
-        bossBar = Bukkit.createBossBar("<minute> Minute <second> Second", BarColor.PINK, BarStyle.SEGMENTED_10);
-        bossBar.setVisible(false);
-        second = 0;
+        this.title = "<minute> Minute <second> Second";
+        this.bossBar = Bukkit.createBossBar(this.title, BarColor.PINK, BarStyle.SEGMENTED_10);
+        this.bossBar.setVisible(false);
+        this.second = 0;
     }
     public BossBarTimer setTitle(String title) {
         this.title = title;
@@ -28,17 +29,17 @@ public class BossBarTimer {
         return this;
     }
     public void addPlayer(Player player) {
-        bossBar.addPlayer(player);
+        this.bossBar.addPlayer(player);
     }
     public void removePlayer(Player player) {
-        bossBar.removePlayer(player);
+        this.bossBar.removePlayer(player);
     }
 
     public void runTimer(Plugin plugin, int cool) {
         stop();
-        bossBar.setVisible(true);
+        this.bossBar.setVisible(true);
         setBossBar(second);
-        runnable = new BukkitRunnable() {
+        this.runnable = new BukkitRunnable() {
             private int count = second;
 
             @Override
@@ -47,13 +48,13 @@ public class BossBarTimer {
                 if(count <= 0) stop();
             }
         };
-        runnable.runTaskTimer(plugin, 20*cool, 20*cool);
+        this.runnable.runTaskTimer(plugin, 20*cool, 20*cool);
     }
     public void stop() {
-        if(runnable != null) {
-            runnable.cancel();
-            runnable = null;
-            bossBar.setVisible(false);
+        if(this.runnable != null) {
+            this.runnable.cancel();
+            this.runnable = null;
+            this.bossBar.setVisible(false);
         }
     }
     private void setBossBar(int count) {
@@ -64,7 +65,7 @@ public class BossBarTimer {
         } else {
             title = this.title.replace("<second>", String.valueOf(count));
         }
-        bossBar.setTitle(title);
-        bossBar.setProgress((double) count/second);
+        this.bossBar.setTitle(title);
+        this.bossBar.setProgress((double) count/second);
     }
 }
