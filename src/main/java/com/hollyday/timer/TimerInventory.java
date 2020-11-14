@@ -13,14 +13,10 @@ public class TimerInventory {
     public final static ItemStack resetTimer;
 
     static {
-        m5Timer = new ItemStack(Material.INK_SACK);
-        m5Timer.setDurability((short) 1);
-        m10Timer = new ItemStack(Material.INK_SACK);
-        m10Timer.setDurability((short) 2);
-        stopAndStartTimer = new ItemStack(Material.INK_SACK);
-        stopAndStartTimer.setDurability((short) 3);
-        resetTimer = new ItemStack(Material.INK_SACK);
-        resetTimer.setDurability((short) 4);
+        m5Timer = new ItemBuilder(Material.INK_SACK).setDisplayName("§a5분 타이머").setDur((short) 1).build();
+        m10Timer = new ItemBuilder(Material.INK_SACK).setDisplayName("§e10분 타이머").setDur((short) 2).build();
+        stopAndStartTimer = new ItemBuilder(Material.INK_SACK).setDisplayName("§f타이머 일시정지").setDur((short) 3).build();
+        resetTimer = new ItemBuilder(Material.INK_SACK).setDisplayName("§c타이머 리셋").setDur((short) 4).build();
     }
 
     public void openInventory(Player player) {

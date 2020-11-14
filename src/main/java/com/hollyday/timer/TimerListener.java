@@ -59,14 +59,17 @@ public class TimerListener implements Listener {
         if(event.getInventory().getName().equals("§6타이머")) {
             event.setCancelled(true);
             if (event.getRawSlot() == 1) {
-                this.barTimer.runTimer(plugin, 300); //5분 타이머
+                this.barTimer.setSecond(300); //5분 타이머
+                this.barTimer.runTimer(plugin, 1);
             } else if (event.getRawSlot() == 3) {
-                this.barTimer.runTimer(plugin, 600); //10분 타이머
+                this.barTimer.setSecond(600); //10분 타이머
+                this.barTimer.runTimer(plugin, 1);
             } else if (event.getRawSlot() == 5) {
                 //스탑 and 스타트 기능
             } else if (event.getRawSlot() == 7) {
                 this.barTimer.stop(); //타이머 리셋
             }
+            player.closeInventory();
         }
     }
 }
