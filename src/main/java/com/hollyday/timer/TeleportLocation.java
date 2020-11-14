@@ -48,7 +48,7 @@ public class TeleportLocation {
 
     public void save() {
         if (this.location != null) {
-            this.config.set("world", this.location.getWorld());
+            this.config.set("world", this.location.getWorld().getName());
             this.config.set("x", this.location.getX());
             this.config.set("y", this.location.getY());
             this.config.set("z", this.location.getZ());
