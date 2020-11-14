@@ -16,11 +16,13 @@ import org.bukkit.inventory.PlayerInventory;
 public class TimerListener implements Listener {
     private final Timer plugin;
     private final BossBarTimer barTimer;
+    private final TeleportLocation tLocation;
     private final TimerInventory timerInventory;
 
-    public TimerListener(Timer plugin, BossBarTimer barTimer) {
+    public TimerListener(Timer plugin, BossBarTimer barTimer, TeleportLocation tLocation) {
         this.plugin = plugin;
         this.barTimer = barTimer;
+        this.tLocation = tLocation;
         this.timerInventory = new TimerInventory();
     }
 
@@ -35,7 +37,7 @@ public class TimerListener implements Listener {
             if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 this.timerInventory.openInventory(player); //인벤토리 오픈
             } else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-                //좌표 설정
+                this.tLocation.setLocation(player); //좌표 설정
             }
         }
     }
