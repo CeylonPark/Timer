@@ -16,11 +16,13 @@ import org.bukkit.inventory.PlayerInventory;
 public class TimerListener implements Listener {
     private final Timer plugin;
     private final BossBarTimer barTimer;
+    private final TeleportLocation tLocation;
     private final TimerInventory timerInventory;
 
-    public TimerListener(Timer plugin, BossBarTimer barTimer) {
+    public TimerListener(Timer plugin, BossBarTimer barTimer, TeleportLocation tLocation) {
         this.plugin = plugin;
         this.barTimer = barTimer;
+        this.tLocation = tLocation;
         this.timerInventory = new TimerInventory();
     }
 
@@ -35,7 +37,7 @@ public class TimerListener implements Listener {
             if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 this.timerInventory.openInventory(player); //인벤토리 오픈
             } else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-                //좌표 설정
+                this.tLocation.setLocation(player); //좌표 설정
             }
         }
     }
@@ -59,11 +61,13 @@ public class TimerListener implements Listener {
         if(event.getInventory().getName().equals("§6타이머")) {
             event.setCancelled(true);
             if (event.getRawSlot() == 1) {
-                this.barTimer.setSecond(300); //5분 타이머
+                this.barTimer.setSecond(3); //5분 타이머
                 this.barTimer.runTimer(plugin, 1);
+                this.barTimer.setAfterRunnable(this.tLocation::teleportAll);
             } else if (event.getRawSlot() == 3) {
-                this.barTimer.setSecond(600); //10분 타이머
+                this.barTimer.setSecond(6); //10분 타이머
                 this.barTimer.runTimer(plugin, 1);
+                this.barTimer.setAfterRunnable(this.tLocation::teleportAll);
             } else if (event.getRawSlot() == 5) {
                 //스탑 and 스타트 기능
             } else if (event.getRawSlot() == 7) {
