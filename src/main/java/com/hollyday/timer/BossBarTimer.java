@@ -12,7 +12,7 @@ public class BossBarTimer {
     private final BossBar bossBar;
     private String title;
     private int second;
-    private BukkitRunnable runnable;
+    private BarTimer runnable;
     private Runnable afterRunnable = null;
 
     public BossBarTimer() {
@@ -44,25 +44,18 @@ public class BossBarTimer {
     public void setAfterRunnable(Runnable afterRunnable) {
         this.afterRunnable = afterRunnable;
     }
+
     public void runTimer(Plugin plugin, int cool) {
         stop();
         this.bossBar.setVisible(true);
         setBossBar(second);
-        this.runnable = new BukkitRunnable() {
-            private int count = second;
-
-            @Override
-            public void run() {
-                setBossBar(count = count - cool);
-                if(count <= 0) {
-                    stop();
-                    if(afterRunnable != null) {
-                        afterRunnable.run();
-                    }
-                }
-            }
-        };
+        this.runnable = new BarTimer(cool);
         this.runnable.runTaskTimer(plugin, 20*cool, 20*cool);
+    }
+    public void pause() {
+        if(this.runnable != null) {
+            this.runnable.pause();
+        }
     }
     public void stop() {
         if(this.runnable != null) {
@@ -82,6 +75,34 @@ public class BossBarTimer {
         this.bossBar.setTitle(title);
         if(second > 0) {
             this.bossBar.setProgress((double) count/second);
+        }
+    }
+
+    private class BarTimer extends BukkitRunnable {
+        private final int cool;
+        private int count;
+        private boolean pause;
+
+        public BarTimer(int cool) {
+            this.cool = cool;
+            this.count = BossBarTimer.this.second;
+        }
+
+        @Override
+        public void run() {
+            if(!this.pause) {
+                BossBarTimer.this.setBossBar(this.count = this.count - this.cool);
+                if(this.count <= 0) {
+                    BossBarTimer.this.stop();
+                    if(BossBarTimer.this.afterRunnable != null) {
+                        BossBarTimer.this.afterRunnable.run();
+                    }
+                }
+            }
+        }
+
+        public void pause() {
+            this.pause = !this.pause;
         }
     }
 }
