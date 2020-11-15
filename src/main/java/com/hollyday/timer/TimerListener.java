@@ -65,7 +65,7 @@ public class TimerListener implements Listener {
             } else if (event.getRawSlot() == 3) {
                 this.runBarTimer(600); //10분 타이머
             } else if (event.getRawSlot() == 5) {
-                //스탑 and 스타트 기능
+                this.barTimer.pause(); //스탑 and 스타트 기능
             } else if (event.getRawSlot() == 7) {
                 this.barTimer.stop(); //타이머 리셋
             }
