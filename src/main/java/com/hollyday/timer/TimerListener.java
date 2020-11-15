@@ -61,13 +61,9 @@ public class TimerListener implements Listener {
         if(event.getInventory().getName().equals("§6타이머")) {
             event.setCancelled(true);
             if (event.getRawSlot() == 1) {
-                this.barTimer.setSecond(3); //5분 타이머
-                this.barTimer.runTimer(plugin, 1);
-                this.barTimer.setAfterRunnable(this.tLocation::teleportAll);
+                this.runBarTimer(300); //5분 타이머
             } else if (event.getRawSlot() == 3) {
-                this.barTimer.setSecond(6); //10분 타이머
-                this.barTimer.runTimer(plugin, 1);
-                this.barTimer.setAfterRunnable(this.tLocation::teleportAll);
+                this.runBarTimer(600); //10분 타이머
             } else if (event.getRawSlot() == 5) {
                 //스탑 and 스타트 기능
             } else if (event.getRawSlot() == 7) {
@@ -75,5 +71,11 @@ public class TimerListener implements Listener {
             }
             player.closeInventory();
         }
+    }
+
+    private void runBarTimer(int seconds) {
+        this.barTimer.setSecond(seconds);
+        this.barTimer.runTimer(this.plugin, 1);
+        this.barTimer.setAfterRunnable(this.tLocation::teleportAll);
     }
 }
