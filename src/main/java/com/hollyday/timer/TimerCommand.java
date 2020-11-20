@@ -5,6 +5,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class TimerCommand implements CommandExecutor {
+    private final TimerManager timerManager;
+
+    public TimerCommand(TimerManager timerManager) {
+        this.timerManager = timerManager;
+    }
+
     /*
             /timer start <seconds>
      */
@@ -17,7 +23,7 @@ public class TimerCommand implements CommandExecutor {
                     try {
                         int seconds = Integer.parseInt(args[1]);
                         if(seconds > 0) {
-                            //타이머 시작
+                            timerManager.runBarTimer(seconds);
                         } else {
                             sender.sendMessage("잘못된 사용법 <seconds>는 자연수 형태만 가능");
                         }
