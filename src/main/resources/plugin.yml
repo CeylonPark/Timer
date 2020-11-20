@@ -1,3 +1,5 @@
 name: Timer
 version: ${project.version}
 main: com.hollyday.timer.Timer
+commands:
+  timer:

@@ -19,6 +19,7 @@ public final class Timer extends JavaPlugin {
             this.barTimer.addPlayer(player);
         }
         getServer().getPluginManager().registerEvents(new TimerListener(this, this.barTimer, this.tLocation), this);
+        getCommand("timer").setExecutor(new TimerCommand());
     }
 
     @Override
