@@ -14,6 +14,9 @@ public class TimerManager extends TeleportLocation {
         this.bossBarTimer = new BossBarTimer();
     }
 
+    public void setTitle(String title) {
+        this.bossBarTimer.setTitle(title);
+    }
     public void addPlayer(Player player) {
         this.bossBarTimer.addPlayer(player);
     }
