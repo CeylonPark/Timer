@@ -1,14 +1,16 @@
-package com.hollyday.timer;
+package com.hollyday.timer.module;
 
+import com.hollyday.timer.Timer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 
 public class TeleportLocation {
-    private final Timer plugin;
+    private final Plugin plugin;
     private final FileConfiguration config;
     private Location location;
 
@@ -18,9 +20,8 @@ public class TeleportLocation {
 
     }
 
-    public void setLocation(Player player) {
-        this.location = player.getLocation();
-        player.sendMessage("좌표가 설정되었습니다.");
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public Location getLocation() {
