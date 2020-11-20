@@ -1,4 +1,4 @@
-package com.hollyday.timer;
+package com.hollyday.timer.module;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
