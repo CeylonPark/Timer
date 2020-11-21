@@ -17,6 +17,7 @@ public class TimerCommand implements CommandExecutor {
     /*
             /timer start <seconds>
             /timer stop
+            /timer title <title>
             /timer teleport <on/off>
             /timer help
      */
