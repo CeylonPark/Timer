@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 public class TimerManager extends TeleportLocation {
     private final Timer plugin;
     private final BossBarTimer bossBarTimer;
+    private boolean teleportUse = false;
 
     public TimerManager(Timer plugin) {
         super(plugin);
@@ -29,9 +30,17 @@ public class TimerManager extends TeleportLocation {
     public void stop() {
         this.bossBarTimer.stop();
     }
+    public void setTeleportUse(boolean teleportUse) {
+        this.teleportUse = teleportUse;
+    }
+    public boolean getTeleportUse() {
+        return this.teleportUse;
+    }
     public void runBarTimer(int seconds) {
         this.bossBarTimer.setSecond(seconds);
         this.bossBarTimer.runTimer(this.plugin, 1);
-        this.bossBarTimer.setAfterRunnable(this::teleportAll);
+        if(this.teleportUse) {
+            this.bossBarTimer.setAfterRunnable(this::teleportAll);
+        }
     }
 }

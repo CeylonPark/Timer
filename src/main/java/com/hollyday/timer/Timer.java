@@ -17,7 +17,8 @@ public final class Timer extends JavaPlugin {
             this.timerManager.addPlayer(player);
         }
         getServer().getPluginManager().registerEvents(new TimerListener(this.timerManager), this);
-        getCommand("timer").setExecutor(new TimerCommand(timerManager));
+        getCommand("timer").setExecutor(new TimerCommand(this, timerManager));
+        this.getLogger().info("Enalble Timer Plugin ( Ver: "+this.getDescription().getVersion()+" )");
     }
 
     @Override
