@@ -17,7 +17,6 @@ public class TeleportLocation {
     public TeleportLocation(Timer plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfig();
-
     }
 
     public void setLocation(Location location) {
@@ -29,6 +28,9 @@ public class TeleportLocation {
     }
 
     public void teleportAll() {
+        if(this.location == null) {
+            return;
+        }
         for(Player player : this.plugin.getServer().getOnlinePlayers()) {
             player.teleport(this.location);
         }
