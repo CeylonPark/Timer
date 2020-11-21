@@ -16,6 +16,7 @@ public class TimerCommand implements CommandExecutor {
 
     /*
             /timer start <seconds>
+            /timer stop
             /timer teleport <on/off>
             /timer help
      */
@@ -38,6 +39,13 @@ public class TimerCommand implements CommandExecutor {
                         }
                     } else {
                         sender.sendMessage("Usage: /timer start <seconds>");
+                    }
+                    break;
+                case "stop":
+                    if(args.length == 1) {
+                        this.timerManager.stop();
+                    } else {
+                        sender.sendMessage("Usage: /timer stop");
                     }
                     break;
                 case "title":
@@ -81,6 +89,7 @@ public class TimerCommand implements CommandExecutor {
                             "§cThis is Timer Plugin. Version: "+this.plugin.getDescription().getVersion(),
                             "§dUsage:",
                             "    /timer start <seconds>",
+                            "    /timer stop",
                             "    /timer title <title> §6- <minute>, <second>이 포함되어야 합니다.",
                             "    /timer teleprot <on/off>",
                             "    /timer help"
