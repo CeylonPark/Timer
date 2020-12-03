@@ -24,7 +24,7 @@ public class TimerInventory {
     public void openInventory(Player player) {
         Inventory inv = Bukkit.createInventory(player, 9, "§6타이머");
 
-        inv.setItem(0, this.getSettingItemStack(this.seconds));
+        inv.setItem(0, this.getSettingItemStack());
         inv.setItem(2, TimerInventory.resetTimer);
         inv.setItem(4, TimerInventory.startTimer);
         inv.setItem(6, TimerInventory.pauseTimer);
@@ -33,12 +33,23 @@ public class TimerInventory {
         player.openInventory(inv);
     }
 
-    public ItemStack getSettingItemStack(int seconds) {
-        return new ItemBuilder(Material.INK_SACK).setDisplayName("§6타이머 셋팅").setDur((short) 1).
-                addLore("초:"+seconds).build();
-        //시간 추가
+    public void updateTimerInventory(Inventory inventory) {
+        inventory.setItem(0, this.getSettingItemStack());
     }
-    
+
+    private ItemStack getSettingItemStack() {
+        return new ItemBuilder(Material.INK_SACK).setDisplayName("§6타이머 셋팅").setDur((short) 1)
+                .addLore("§f").addLore("§f좌클릭 §a+1분").addLore("§f쉬프트+좌클릭 §a+10분").addLore("§f")
+                .addLore("§f우클릭 §c-1분").addLore("§f쉬프트+우클릭 §c-10분").addLore("§f").addLore("§f")
+                .addLore("§f§l설정된 타이머 §6§l[ "+this.seconds/60+":"+this.seconds%60+" ]").build();
+    }
+
+    public void addSeconds(int seconds) {
+        this.seconds += seconds;
+    }
+    public void removeSeconds(int seconds) {
+        this.seconds = Math.max(this.seconds - seconds, 0);
+    }
     public void setSeconds(int seconds) {
         this.seconds = seconds;
     }

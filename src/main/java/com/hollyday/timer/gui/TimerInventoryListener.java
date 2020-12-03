@@ -41,22 +41,27 @@ public class TimerInventoryListener implements Listener {
     //인벤토리 클릭
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
         if(event.getInventory().getName().equals("§6타이머")) {
             event.setCancelled(true);
-            if (event.getRawSlot() == 1) {
-                this.timerManager.runBarTimer(300); //5분 타이머
-            } else if (event.getRawSlot() == 3) {
-                this.timerManager.runBarTimer(600); //10분 타이머
-            } else if (event.getRawSlot() == 5) {
-                this.timerManager.pause(); //스탑 and 스타트 기능
-            } else if (event.getRawSlot() == 7) {
-                this.timerManager.stop(); //타이머 리셋
+            if (event.getRawSlot() == 0) {
+                switch (event.getClick()) {
+                    case LEFT: this.timerInventory.addSeconds(60); break;
+                    case SHIFT_LEFT: this.timerInventory.addSeconds(600); break;
+                    case RIGHT: this.timerInventory.removeSeconds(60); break;
+                    case SHIFT_RIGHT: this.timerInventory.removeSeconds(600); break;
+                    default: return;
+                }
+                this.timerInventory.updateTimerInventory(event.getInventory());
+            } else if (event.getRawSlot() == 2) {
+                this.timerInventory.setSeconds(0); //타이머 초기화
+                this.timerInventory.updateTimerInventory(event.getInventory());
+            } else if (event.getRawSlot() == 4) {
+                this.timerManager.runBarTimer(this.timerInventory.getSeconds()); //타이머 시작
+            } else if (event.getRawSlot() == 6) {
+                this.timerManager.pause(); //타이머 일시정지
+            } else if (event.getRawSlot() == 8) {
+                this.timerManager.stop(); //타이머 정지
             }
-            player.closeInventory();
         }
-
-        //타이머 셋팅
-        //숫자
     }
 }
