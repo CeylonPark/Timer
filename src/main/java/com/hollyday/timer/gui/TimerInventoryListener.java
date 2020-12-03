@@ -55,5 +55,8 @@ public class TimerInventoryListener implements Listener {
             }
             player.closeInventory();
         }
+
+        //타이머 셋팅
+        //숫자
     }
 }

@@ -8,26 +8,41 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class TimerInventory {
-    public final static ItemStack m5Timer;
-    public final static ItemStack m10Timer;
-    public final static ItemStack stopAndStartTimer;
     public final static ItemStack resetTimer;
+    public final static ItemStack startTimer;
+    public final static ItemStack pauseTimer;
+    public final static ItemStack stopTimer;
+    private int seconds = 0;
 
     static {
-        m5Timer = new ItemBuilder(Material.INK_SACK).setDisplayName("§a5분 타이머").setDur((short) 1).build();
-        m10Timer = new ItemBuilder(Material.INK_SACK).setDisplayName("§e10분 타이머").setDur((short) 2).build();
-        stopAndStartTimer = new ItemBuilder(Material.INK_SACK).setDisplayName("§f타이머 일시정지").setDur((short) 3).build();
-        resetTimer = new ItemBuilder(Material.INK_SACK).setDisplayName("§c타이머 리셋").setDur((short) 4).build();
+        resetTimer = new ItemBuilder(Material.INK_SACK).setDisplayName("§6타이머 초기화").setDur((short) 2).build();
+        startTimer = new ItemBuilder(Material.INK_SACK).setDisplayName("§a타이머 시작").setDur((short) 3).build();
+        pauseTimer = new ItemBuilder(Material.INK_SACK).setDisplayName("§b타이머 일시정지").setDur((short) 4).build();
+        stopTimer = new ItemBuilder(Material.INK_SACK).setDisplayName("§c타이머 정지").setDur((short) 5).build();
     }
 
     public void openInventory(Player player) {
         Inventory inv = Bukkit.createInventory(player, 9, "§6타이머");
 
-        inv.setItem(1, TimerInventory.m5Timer);
-        inv.setItem(3, TimerInventory.m10Timer);
-        inv.setItem(5, TimerInventory.stopAndStartTimer);
-        inv.setItem(7, TimerInventory.resetTimer);
+        inv.setItem(0, this.getSettingItemStack(this.seconds));
+        inv.setItem(2, TimerInventory.resetTimer);
+        inv.setItem(4, TimerInventory.startTimer);
+        inv.setItem(6, TimerInventory.pauseTimer);
+        inv.setItem(8, TimerInventory.stopTimer);
 
         player.openInventory(inv);
+    }
+
+    public ItemStack getSettingItemStack(int seconds) {
+        return new ItemBuilder(Material.INK_SACK).setDisplayName("§6타이머 셋팅").setDur((short) 1).
+                addLore("초:"+seconds).build();
+        //시간 추가
+    }
+    
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
+    }
+    public int getSeconds() {
+        return this.seconds;
     }
 }
