@@ -1,4 +1,4 @@
-package com.hollyday.timer;
+package com.ceylon.timer;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,6 +1,6 @@
-package com.hollyday.timer.module;
+package com.ceylon.timer.module;
 
-import com.hollyday.timer.Timer;
+import com.ceylon.timer.Timer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;

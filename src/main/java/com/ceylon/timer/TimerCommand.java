@@ -1,4 +1,4 @@
-package com.hollyday.timer;
+package com.ceylon.timer;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

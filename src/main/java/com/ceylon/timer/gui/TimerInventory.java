@@ -1,6 +1,6 @@
-package com.hollyday.timer.gui;
+package com.ceylon.timer.gui;
 
-import com.hollyday.timer.util.ItemBuilder;
+import com.ceylon.timer.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

@@ -1,7 +1,7 @@
-package com.hollyday.timer;
+package com.ceylon.timer;
 
-import com.hollyday.timer.module.BossBarTimer;
-import com.hollyday.timer.module.TeleportLocation;
+import com.ceylon.timer.module.TeleportLocation;
+import com.ceylon.timer.module.BossBarTimer;
 import org.bukkit.entity.Player;
 
 public class TimerManager extends TeleportLocation {

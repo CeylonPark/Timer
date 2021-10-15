@@ -1,6 +1,6 @@
-package com.hollyday.timer;
+package com.ceylon.timer;
 
-import com.hollyday.timer.gui.TimerInventoryListener;
+import com.ceylon.timer.gui.TimerInventoryListener;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
